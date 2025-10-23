@@ -1,10 +1,10 @@
-import Calendar from './components/Calendar'
+import CalendarPage from './domains/calendar/pages/CalendarPage'
 import './App.css'
 
 function App() {
   return (
     <div className="App">
-      <Calendar />
+      <CalendarPage />
     </div>
   )
 }

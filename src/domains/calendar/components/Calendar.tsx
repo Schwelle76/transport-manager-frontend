@@ -1,8 +1,19 @@
 import { useState } from 'react';
 import styles from './Calendar.module.css';
 
-const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+interface CalendarProps {
+  currentDate: Date;
+  onCurrentDateChange: (date: Date) => void;
+  selectedDate?: Date;
+  onDateSelect: (date: Date | undefined) => void;
+}
+
+const Calendar = ({
+  currentDate,
+  onCurrentDateChange,
+  selectedDate,
+  onDateSelect
+}: CalendarProps) => {
 
   const monthNames = [
     'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
@@ -42,13 +53,20 @@ const Calendar = () => {
   const handlePreviousMonth = () => {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() - 1);
-    setCurrentDate(newDate);
+    onCurrentDateChange(newDate);
   };
 
   const handleNextMonth = () => {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() + 1);
-    setCurrentDate(newDate);
+    onCurrentDateChange(newDate);
+  };
+
+  const handleDayClick = (day: number | null) => {
+    if (day) {
+      const selected = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+      onDateSelect(selected);
+    }
   };
 
   return (
@@ -66,15 +84,30 @@ const Calendar = () => {
       </div>
       
       <div className={styles.daysGrid}>
-        {getDaysInMonth(currentDate).map((day, index) => (
+        {(selectedDate ? getDaysInMonth(currentDate).slice(
+          Math.floor(getDaysInMonth(currentDate).findIndex(d => d === selectedDate.getDate()) / 7) * 7,
+          Math.floor(getDaysInMonth(currentDate).findIndex(d => d === selectedDate.getDate()) / 7) * 7 + 7
+        ) : getDaysInMonth(currentDate)).map((day, index) => (
           <div 
             key={index}
-            className={`${styles.dayCell} ${day ? styles.activeDay : ''}`}
+            className={`${styles.dayCell} ${day ? styles.activeDay : ''} ${
+              selectedDate?.getDate() === day ? styles.selectedDay : ''
+            }`}
+            onClick={() => handleDayClick(day)}
           >
             {day || ''}
           </div>
         ))}
       </div>
+      {selectedDate && (
+        <button 
+          className={styles.collapseArrow}
+          onClick={() => onDateSelect(undefined)}
+          aria-label="Expand calendar"
+        >
+          ↓
+        </button>
+      )}
     </div>
   );
 };
