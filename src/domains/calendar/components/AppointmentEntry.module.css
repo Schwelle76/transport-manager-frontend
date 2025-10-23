@@ -1,0 +1,18 @@
+.entry {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+}
+
+.header {
+  font-weight: 600;
+  color: #1f2937; /* slate-800 */
+  margin-bottom: 4px;
+}
+
+.time {
+  color: #374151; /* gray-700 */
+  font-size: 0.95rem;
+}

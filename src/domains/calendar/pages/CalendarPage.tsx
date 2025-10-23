@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Calendar from '../components/Calendar'
+import AppointmentList from '../components/AppointmentList'
 
 function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -22,6 +23,9 @@ function CalendarPage() {
         selectedDate={selectedDate}
         onDateSelect={handleDateSelect}
       />
+      {selectedDate && (
+        <AppointmentList selectedDate={selectedDate} />
+      )}
     </div>
   )
 }
