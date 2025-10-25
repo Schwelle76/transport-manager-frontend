@@ -10,7 +10,12 @@ function CalendarPage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const { appointments, loading, error } = useAppointments('2025', '2026');
 
-  console.log(appointments, loading, error);
+  const blockedDays = appointments?.reduce((acc, appointment) => {
+    acc[appointment.date] = 'red';
+    return acc;
+  }, {} as Record<string, string>) || {};
+
+  console.log(appointments, loading, error, blockedDays);
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date)
@@ -36,6 +41,8 @@ function CalendarPage() {
         onCurrentDateChange={handleCurrentDateChange}
         selectedDate={selectedDate}
         onDateSelect={handleDateSelect}
+        markedDates={blockedDays}
+        unmarkedDatesColor="#49c849ff"
       />
       {selectedDate && (
         <AppointmentList appointments={visibleAppointments} />

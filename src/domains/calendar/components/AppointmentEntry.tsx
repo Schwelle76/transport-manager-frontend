@@ -10,6 +10,8 @@ export default function AppointmentEntry({ appointment }: Props) {
     <div className={styles.entry}>
       <div className={styles.header}>{appointment.clientId}</div>
       <div className={styles.time}>{appointment.startTime} — {appointment.endTime}</div>
+      <div className={styles.time}>{appointment.location}</div>
+
     </div>
   )
 }

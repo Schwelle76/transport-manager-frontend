@@ -3,4 +3,5 @@ export type Appointment = {
   date: string;       // YYYY-MM-DD
   startTime: string;  // HH:MM
   endTime: string;    // HH:MM
+  location: string;
 }

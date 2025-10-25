@@ -46,6 +46,13 @@
 .dayCell {
   padding: 1rem;
   text-align: center;
+  position: relative;
+  border-radius: 10%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
 }
 
 .activeDay {
@@ -53,7 +60,7 @@
 }
 
 .activeDay:hover {
-  background-color: #492e61;
+  background-color: #492e61 !important;
 }
 
 .selectedDay {
