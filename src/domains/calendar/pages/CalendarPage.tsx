@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Calendar from '../components/Calendar'
 import AppointmentList from '../components/AppointmentList'
 import { useAppointments } from '../hooks/useAppointments'
+import { formatDateToYMD } from '../../../utils/DateParser'
+import type { Appointment } from '../../../types/Appointment'
 
 function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -19,6 +21,14 @@ function CalendarPage() {
     setSelectedDate(undefined)
   }
 
+  let visibleAppointments: Appointment[] = [];
+  
+  if (selectedDate){
+    const selectedYMD = formatDateToYMD(selectedDate)
+    if(appointments)
+      visibleAppointments = appointments.filter((a) => a.date === selectedYMD)
+  }
+
   return (
     <div>
       <Calendar
@@ -28,7 +38,7 @@ function CalendarPage() {
         onDateSelect={handleDateSelect}
       />
       {selectedDate && (
-        <AppointmentList selectedDate={selectedDate} />
+        <AppointmentList appointments={visibleAppointments} />
       )}
     </div>
   )
