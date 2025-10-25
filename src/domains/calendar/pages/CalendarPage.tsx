@@ -26,7 +26,7 @@ function CalendarPage() {
   if (selectedDate){
     const selectedYMD = formatDateToYMD(selectedDate)
     if(appointments)
-      visibleAppointments = appointments.filter((a) => a.date === selectedYMD)
+      visibleAppointments = appointments.filter((a) => a.date === selectedYMD).sort((a, b) => Number(a.startTime.replace(':', '')) - Number(b.startTime.replace(':', '')))
   }
 
   return (
